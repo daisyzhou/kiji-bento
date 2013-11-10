@@ -308,8 +308,6 @@ public final class UpgradeDaemonTool {
     }
 
     // Create a check-in thread and start it.
-    // TODO(BENTO-60): add param for package name
-
     mCheckinThread = new CheckinThread(
         uuid,
         timestampFile,

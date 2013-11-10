@@ -76,12 +76,21 @@ $(create_missing_dir "${bento_cluster_state_dir}")
 upgrade_daemon_log_file="${bento_cluster_state_dir}/bento-upgrade-daemon.log"
 
 # Everything in the kiji-bento lib dir should go on the classpath.
-tool_classpath="${kiji_bento_lib_dir}/*"
+tool_classpath="${kiji_bento_lib_dir}/*:${kiji_bento_conf_dir}/*"
 
 # We'll check-in with the upgrade server every 12 hours.
 let "checkin_period_millis=12*60*60*1000"
 
 # Run the tool in the background.
+echo "TODO(BENTO-60): remove this line"
+#nohup java -cp "${tool_classpath}:${kiji_bento_conf_dir}" \
+#  org.kiji.bento.box.tools.UpgradeDaemonTool \
+#  "--state-dir=${bento_cluster_state_dir}" \
+#  "--checkin-period-millis=${checkin_period_millis}" \
+#  "--upgrade-server-url=${BENTO_CHECKIN_SERVER}" \
+#  &> "${upgrade_daemon_log_file}" < /dev/null &
+
+  # -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 \
 nohup java -cp "${tool_classpath}:${kiji_bento_conf_dir}" \
   org.kiji.bento.box.tools.UpgradeDaemonTool \
   "--state-dir=${bento_cluster_state_dir}" \
