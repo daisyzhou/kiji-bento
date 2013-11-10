@@ -20,9 +20,11 @@
 package org.kiji.bento.box.tools;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.URI;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -56,9 +58,6 @@ public final class UpgradeDaemonTool {
 
   /** The name of the file where upgrade information should be written. */
   private static final String UPGRADE_FILE_NAME = ".kiji-bento-upgrade";
-
-  /** The name of the file where the user's unique and anonymous ID is stored. */
-  private static final String UUID_FILE_NAME = UUIDTools.UUID_FILE_NAME;
 
   /** The name of the file that stores a PID for this process. */
   private static final String PID_FILE_NAME = "checkin-daemon.pid";
@@ -309,10 +308,15 @@ public final class UpgradeDaemonTool {
     }
 
     // Create a check-in thread and start it.
-    mCheckinThread = new CheckinThread(uuid, timestampFile, upgradeInfoFile, mCheckinPeriodMillis,
+    // TODO(BENTO-60): add param for package name
+
+    mCheckinThread = new CheckinThread(
+        uuid,
+        timestampFile,
+        upgradeInfoFile,
+        mCheckinPeriodMillis,
         upgradeClient);
     mCheckinThread.start();
-
 
     // Wait until the shutdown hook stops the thread.
     waitForCheckinThreadShutdown();

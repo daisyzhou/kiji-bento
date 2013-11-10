@@ -150,6 +150,7 @@ public final class CheckinThread extends Thread {
    */
   private UpgradeCheckin getCheckinMessage(Long usageTimestamp) {
     try {
+      // TODO(BENTO-60):
       return new UpgradeCheckin.Builder(this.getClass())
           .withId(mUserId)
           .withLastUsedMillis(usageTimestamp)
