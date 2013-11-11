@@ -87,6 +87,7 @@ public final class UpgradeInstallTool {
    * @throws InterruptedException if we were interrupted while waiting for a subprocess.
    */
   public int run(String[] args) throws IOException, InterruptedException {
+    System.out.println("TODO(BENTO-60): remove: printing from UpgradeInstallTool.java");
     // Parse the command-line arguments.
     final List<String> unparsed = FlagParser.init(this, args);
     if (null == unparsed) {
@@ -127,6 +128,7 @@ public final class UpgradeInstallTool {
         uuid = UUID.randomUUID().toString();
         assert null != uuid;
       }
+      System.out.println("TODO(BENTO-60): remove: Building new Upgradecheckin");
       final UpgradeCheckin request = new UpgradeCheckin.Builder(this.getClass())
             .withId(uuid)
             .withLastUsedMillis(System.currentTimeMillis())
